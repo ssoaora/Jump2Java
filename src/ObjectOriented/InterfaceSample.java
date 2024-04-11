@@ -7,10 +7,10 @@
 
 package ObjectOriented;
 
-
-// 인터페이스의 메서드는 메서드의 이름과 입출력에 대한 정의만 있고 그 내용은 없다.
-// getFood 메서드는 인터페이스를 implements한 클래스들이 강제적으로 구현해야 하는 규칙이 된다.
-// 상속과 달리, 인터페이스는 인터페이스의 메서드를 반드시 구현해야 하는 강제성을 갖는다.
+/*
+인터페이스의 메서드는 메서드의 이름과 입출력에 대한 정의만 있고 그 내용은 없다.
+getFood 메서드는 인터페이스를 implements한 클래스들이 강제적으로 구현해야 하는 규칙이 된다.
+상속과 달리, 인터페이스는 인터페이스의 메서드를 반드시 구현해야 하는 강제성을 갖는다.
 
 interface Predator {
   String getFood();
@@ -19,16 +19,32 @@ interface Predator {
     System.out.printf("my food is %s\n", getFood());
   }
 }
+*/
+
+// 추상 클래스는 인터페이스와 달리 일반 클래스처럼 객체 변수, 생성자, private 메서드 등을 가질 수 있다.
+abstract class Predator extends Animals {
+  // abstract 메서드는 인터페이스의 메서드와 마찬가지로 구현체가 없다.
+  // 즉, abstract 클래스를 상속하는 클래스에서 해당 abstract 메서드를 구현해야만 한다.
+  abstract String getFood();
+
+  // 추상 클래스는 일반 클래스와 달리 단독으로 객체를 생성할 수 없다.
+  // 반드시 추상 클래스를 상속한 실제 클래스를 통해서만 객체를 생성할 수 있다.
+  void printFood() {
+    System.out.printf("my food is %s\n", getFood());
+  }
+}
 
 interface Barkable {
   void bark();
 }
 
+/*
 // 인터페이스는 일반 클래스와는 달리 extends를 이용하여 여러 개의 인터페이스를 동시에 상속할 수 있다.
 // 즉, 다중 상속이 지원된다.
 // 자식 인터페이스로 생성한 객체의 자료형은 부모 인터페이스로 사용하는 것이 가능하다.
 interface BarkablePredator extends Predator, Barkable {
 }
+ */
 
 class Animals {
   String name;
@@ -38,6 +54,7 @@ class Animals {
   }
 }
 
+/*
 // 하나의 객체가 여러 개의 자료형 타입을 가질 수 있는 것을 객체 지향 세계에서는 다형성이라고 한다.
 class Tiger extends Animals implements Predator, Barkable {
   // ❗인터페이스의 메서드는 항상 public으로 구현해야 한다.
@@ -53,6 +70,27 @@ class Tiger extends Animals implements Predator, Barkable {
 // 하나의 객체가 여러 개의 자료형 타입을 가질 수 있는 것을 객체 지향 세계에서는 다형성이라고 한다.
 class Lion extends Animals implements BarkablePredator {
   // ❗인터페이스의 메서드는 항상 public으로 구현해야 한다.
+  public String getFood() {
+    return "banana";
+  }
+
+  public void bark() {
+    System.out.println("으르렁");
+  }
+}
+ */
+
+class Tiger extends Predator implements Barkable {
+  public String getFood() {
+    return "apple";
+  }
+
+  public void bark() {
+    System.out.println("어흥");
+  }
+}
+
+class Lion extends Predator implements Barkable {
   public String getFood() {
     return "banana";
   }
